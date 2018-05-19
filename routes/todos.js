@@ -1,16 +1,11 @@
-const express = require("express");
-const app = express();
+var express = require('express');
+var router = express.Router();
+
+router.get("/v1/todos", getTodos);
+router.get("/v1/todos/:todoID", getSingleTodo);
+router.post("/v1/todos", addTodo);
+
 const todos = [];
-
-app.get("/", homepageHandler);
-
-app.get("/api/v1/todos", getTodos);
-app.get("/api/v1/todos/:todoID", getSingleTodo);
-app.post("/api/v1/todos", addTodo);
-
-
-
-
 function addTodo(req,res){
   const todo = {
     "id": Date.now() % 100,
@@ -56,9 +51,4 @@ function getTodos(req,res){
   res.json(obj);
 }
 
-function homepageHandler(req,res){
-  res.send("HELLOW WORLD");
-}
-
-
-app.listen(8080);
+module.exports = router;
